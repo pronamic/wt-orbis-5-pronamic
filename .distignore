@@ -11,18 +11,11 @@
 
 phpcs.ruleset.xml
 
-Gruntfile.js
-
 deploy.php
 
 composer.json
 composer.lock
 
-package.json
-package-lock.json
-yarn.lock
-
 /build/
 /deploy/
-/node_modules/
 /vendor/

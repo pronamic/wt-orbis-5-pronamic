@@ -6,8 +6,5 @@
 # Composer
 /vendor/
 
-# Node.js
-/node_modules/
-
 # Deploy
 /deploy/
