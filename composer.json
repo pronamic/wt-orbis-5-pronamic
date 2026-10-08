@@ -1,5 +1,5 @@
 {
-	"name": "pronamic/wt-orbis-4-pronamic",
+	"name": "pronamic/wt-orbis-5-pronamic",
 	"description": "The default WordPress theme for Orbis.",
 	"version": "4.0.0",
 	"keywords": [
@@ -15,20 +15,47 @@
 			"email": "info@remcotolsma.nl",
 			"homepage": "http://www.remcotolsma.nl",
 			"role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "support@pronamic.nl",
-        "issues": "https://github.com/pronamic/wt-orbis/issues",
-        "source": "https://github.com/pronamic/wt-orbis"
-    },
+		}
+	],
+	"support": {
+		"email": "support@pronamic.nl",
+		"issues": "https://github.com/pronamic/wt-orbis/issues",
+		"source": "https://github.com/pronamic/wt-orbis"
+	},
 	"type": "wordpress-theme",
-    "require": {
-    	"php": ">=5.2.0"
-    },
-    "require-dev": {
-        "squizlabs/php_codesniffer": "3.2.3",
-        "wp-coding-standards/wpcs": "0.14.1",
-        "phpmd/phpmd": "^2.4"
-    }
+	"require": {
+		"php": ">=5.2.0"
+	},
+	"require-dev": {
+		"deployer/deployer": "^7.5",
+		"phpmd/phpmd": "^2.4",
+		"pronamic/wp-coding-standards": "^2.1",
+		"wp-cli/dist-archive-command": "*",
+		"wp-cli/wp-cli-bundle": "*"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"wp-slug": "orbis-5-pronamic",
+		"sort-packages": true
+	},
+	"scripts": {
+		"build": [
+			"rm -rf ./build/orbis-5-pronamic",
+			"rsync --recursive --delete --delete-excluded --verbose --exclude-from=.distignore ./ ./build/orbis-5-pronamic/",
+			"vendor/bin/wp i18n make-pot ./build/orbis-5-pronamic/ ./build/orbis-5-pronamic/languages/orbis_pronamic.pot --slug=orbis-5-pronamic --domain=orbis_pronamic",
+			"vendor/bin/wp i18n make-mo ./build/orbis-5-pronamic/languages/",
+			"vendor/bin/wp dist-archive ./build/orbis-5-pronamic/ --plugin-dirname=orbis-5-pronamic --force"
+		],
+		"deploy": [
+			"Composer\\Config::disableProcessTimeout",
+			"DEPLOYER_IMPORT=${DEPLOYER_IMPORT:-$HOME/deployer-orbis.php} vendor/bin/dep deploy"
+		],
+		"make-pot": [
+			"@build",
+			"rsync --recursive --delete --verbose ./build/orbis-5-pronamic/languages/ ./languages/",
+			"vendor/bin/wp i18n update-po ./languages/orbis_pronamic.pot"
+		]
+	}
 }

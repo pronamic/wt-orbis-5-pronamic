@@ -63,22 +63,16 @@ function orbis_woocommerce_grid() {
 add_action( 'template_redirect', 'orbis_woocommerce_grid' );
 
 /**
- * Timesheets after main content.
+ * Pronamic support messages for the subscription timesheet period of the Orbis Timesheets plugin.
  */
-add_action( 'orbis_after_main_content', function() {
-	$post_types = array(
-		'orbis_subscription' => 'orbis_subscription_timesheet',
+add_action( 'orbis_subscription_timesheet_period', function( $timesheet_period ) {
+	get_template_part(
+		'orbis_subscription_timesheet',
+		null,
+		array(
+			'timesheet_period' => $timesheet_period,
+		)
 	);
-
-	if ( ! is_singular( array_keys( $post_types ) ) ) {
-		return;
-	}
-
-	$post_type = get_post_type();
-
-	if ( array_key_exists( $post_type, $post_types ) ) {
-		get_template_part( $post_types[ $post_type ] );
-	}
 } );
 
 add_action( 'orbis_before_side_content', function() {
