@@ -67,7 +67,6 @@ add_action( 'template_redirect', 'orbis_woocommerce_grid' );
  */
 add_action( 'orbis_after_main_content', function() {
 	$post_types = array(
-		'orbis_project'      => 'orbis_project_timesheet',
 		'orbis_subscription' => 'orbis_subscription_timesheet',
 	);
 
