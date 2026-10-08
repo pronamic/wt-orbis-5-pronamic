@@ -23,6 +23,7 @@
 		"source": "https://github.com/pronamic/wt-orbis"
 	},
 	"type": "wordpress-theme",
+	"abandoned": true,
 	"require": {
 		"php": ">=5.2.0"
 	},
