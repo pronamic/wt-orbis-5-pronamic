@@ -11,32 +11,6 @@ function orbis_pronamic_setup() {
 add_action( 'after_setup_theme', 'orbis_pronamic_setup' );
 
 /**
- * Woocommerce
- */
-
-/* Number products */
-function orbis_number_products() {
-	return 36;
-}
-
-add_filter( 'loop_shop_per_page', 'orbis_number_products', 20 );
-
-/* Number columns */
-function orbis_products_per_row() {
-	return 4;
-}
-
-add_filter( 'loop_shop_columns', 'orbis_products_per_row', 20 );
-
-/* Thumbnail */
-remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
-
-/* Sidebar */
-add_action( 'template_redirect', function() {
-	remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
-} );
-
-/**
  * Pronamic support messages for the subscription timesheet period of the Orbis Timesheets plugin.
  */
 add_action( 'orbis_subscription_timesheet_period', function( $timesheet_period ) {
